@@ -6,11 +6,11 @@ import Login from './screens/Login';
 
 function App() {
   return (
-      <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path= 'signup' element={<Signup/>}/>
-        <Route path='login' element={<Login/>}/>
-      </Routes>
+    <Routes>
+      <Route path='/home' element={<Home />} />
+      <Route path='signup' element={<Signup />} />
+      <Route path='/' element={<Login />} />
+    </Routes>
   );
 }
 

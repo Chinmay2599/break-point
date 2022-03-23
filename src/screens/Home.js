@@ -8,13 +8,12 @@ import ProjectSection from '../components/ProjectSection'
 import { auth, db } from '../firebase/Auth'
 
 function Home() {
-
     const [userAccess, setUserAccess] = useState(localStorage.getItem('user'))
     const [data, setData] = useState(null);
 
-    useEffect(()=> {
+    useEffect(() => {
 
-        if(userAccess){
+        if (userAccess) {
             getUserData(userAccess)
         }
 
@@ -31,18 +30,18 @@ function Home() {
     }
     const logout = () => {
         signOut(auth)
-        .then(()=> {
-            console.log('Signed out')
-            localStorage.removeItem('user')
-            setUserAccess(null)
-        })
-        .catch(err=> console.log(err))
+            .then(() => {
+                console.log('Signed out')
+                localStorage.removeItem('user')
+                setUserAccess(null)
+            })
+            .catch(err => console.log(err))
     };
 
     const getUserData = userId => {
         const docRef = doc(db, 'users', userId)
 
-        onSnapshot(docRef, doc=> {
+        onSnapshot(docRef, doc => {
             console.log(doc.data())
             setData(doc.data())
         })
@@ -76,9 +75,9 @@ function Home() {
     }
 
     const showProjects = () => {
-        if(userAccess){
-            return<ProjectSection data={data}/>
-        }else{
+        if (userAccess) {
+            return <ProjectSection data={data} />
+        } else {
             return <div>Landing Page</div>
         }
     }
