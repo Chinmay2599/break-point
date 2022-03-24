@@ -10,15 +10,16 @@ function Navbar() {
 
     const signInHandler = () => {
         signInWithPopup(auth, provider)
-        .then((result) => {
-            const user = result.user;
-            console.log(user.uid)
-            localStorage.setItem('user', user.uid)
-            setUserAccess(user.uid)
+            .then((result) => {
+                const user = result.user;
+                console.log(result)
+                console.log(user.accessToken)
+                localStorage.setItem('user', user.accessToken)
+                setUserAccess(user.accessToken)
 
-          }).catch((error) => {
-           console.log(error)
-          });
+            }).catch((error) => {
+                console.log(error)
+            });
     }
 
     const logoutHandler = () => {
@@ -28,13 +29,13 @@ function Navbar() {
     }
 
     const isUserLoggedIn = () => {
-        if(userAccess){
+        if (userAccess) {
             return (
                 <IconButton disableRipple onClick={logoutHandler} color='inherit'>
-                    <LogoutIcon color='inherit'/>
+                    <LogoutIcon color='inherit' />
                 </IconButton>
             )
-        }else {
+        } else {
             return (
                 <Button color='inherit' variant='outlined' onClick={signInHandler}>Sign in with Google</Button>
             )
