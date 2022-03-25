@@ -6,24 +6,16 @@ import { connect } from 'react-redux';
 
 function Navbar({signUserIn, uid, signUserOut}) {
 
-    const signInHandler = () => {
-        signUserIn()
-    }
-
-    const logoutHandler = () => {
-        signUserOut()
-    }
-
     const isUserLoggedIn = () => {
         if(uid){
             return (
-                <IconButton disableRipple onClick={logoutHandler} color='inherit'>
+                <IconButton disableRipple onClick={signUserOut} color='inherit'>
                     <LogoutIcon color='inherit'/>
                 </IconButton>
             )
         }else {
             return (
-                <Button color='inherit' variant='outlined' onClick={signInHandler}>Sign in with Google</Button>
+                <Button color='inherit' variant='outlined' onClick={signUserIn}>Sign in with Google</Button>
             )
         }
     }
