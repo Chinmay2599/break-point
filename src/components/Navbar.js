@@ -1,34 +1,21 @@
 import { AppBar, Box, Button, IconButton, Toolbar, Typography } from '@mui/material'
-import { signInWithPopup, signOut } from 'firebase/auth';
-import React, { useState } from 'react'
-import { auth, provider } from '../firebase/Auth';
+import React from 'react'
 import LogoutIcon from '@mui/icons-material/Logout';
+import { signUserIn, signUserOut } from '../redux/user/userActions';
+import { connect } from 'react-redux';
 
-function Navbar() {
-
-    const [userAccess, setUserAccess] = useState(localStorage.getItem('user'))
+function Navbar({signUserIn, uid, signUserOut}) {
 
     const signInHandler = () => {
-        signInWithPopup(auth, provider)
-        .then((result) => {
-            const user = result.user;
-            console.log(user.uid)
-            localStorage.setItem('user', user.uid)
-            setUserAccess(user.uid)
-
-          }).catch((error) => {
-           console.log(error)
-          });
+        signUserIn()
     }
 
     const logoutHandler = () => {
-        signOut(auth)
-        localStorage.removeItem('user')
-        setUserAccess(null)
+        signUserOut()
     }
 
     const isUserLoggedIn = () => {
-        if(userAccess){
+        if(uid){
             return (
                 <IconButton disableRipple onClick={logoutHandler} color='inherit'>
                     <LogoutIcon color='inherit'/>
@@ -54,4 +41,17 @@ function Navbar() {
     )
 }
 
-export default Navbar
+const mapStateToProps = state => {
+    return {
+        uid: state.uid
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        signUserIn: ()=> dispatch(signUserIn()),
+        signUserOut: ()=> dispatch(signUserOut())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar)

@@ -1,12 +1,18 @@
 import { Box } from '@mui/material'
 import React from 'react'
+import { connect } from 'react-redux'
 
-function ProjectSection() {
-    const userAccessToken = localStorage.getItem('user')
-    console.log(userAccessToken)
+function ProjectSection({uid}) {
+
     return (
-        <Box>{userAccessToken}</Box>
+        <Box>{uid}</Box>
     )
 }
 
-export default ProjectSection
+const mapStateToProps = state => {
+    return {
+        uid: state.uid
+    }
+}
+
+export default connect(mapStateToProps)(ProjectSection)
