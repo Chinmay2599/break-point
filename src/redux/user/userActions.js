@@ -1,6 +1,6 @@
 import { signInWithPopup, signOut } from "firebase/auth"
 import { auth, provider } from "../../firebase/Auth"
-import { LOG_OUT, LOG_USER, SIGN_USER_IN } from "./userTypes"
+import { LOG_OUT, LOG_USER } from "./userTypes"
 
 export const logUser = user => {
     return {
@@ -32,7 +32,6 @@ export const signUserOut = () => {
     return (dispatch) => {
         signOut(auth)
         .then(()=> {
-            localStorage.removeItem('user')
             dispatch(logOut())
         })
         .catch(err => console.log(err))

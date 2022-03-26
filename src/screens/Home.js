@@ -1,15 +1,44 @@
-import { Box } from '@mui/material'
-import React from 'react'
+import { Box, Button, Typography } from '@mui/material'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
-import ProjectSection from '../components/ProjectSection'
+import { signUserIn } from '../redux/user/userActions'
 
-function Home() {
+function Home({signUserIn, uid}) {
+
+  const navigate = useNavigate()
+
+  useEffect(()=> {
+    if(uid){
+      navigate('/dashboard')
+    }
+  }, [uid])
+
+  const Action = () => {
+    return (
+      <Button color='inherit' variant='outlined' onClick={signUserIn}>Get Started</Button>
+    )
+  }
+
   return (
-    <Box sx={{flexGrow: 1}}>
-        <Navbar/>
-          <ProjectSection/>
+    <Box sx={{ flexGrow: 1 }}>
+      <Navbar action = {<Action/>}/>
+      <Typography>Landing Page</Typography>
     </Box>
   )
 }
 
-export default Home
+const mapStateToProps = state => {
+  return {
+    uid: state.uid
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    signUserIn: () => dispatch(signUserIn())
+  }
+} 
+
+export default connect(mapStateToProps, mapDispatchToProps) (Home)

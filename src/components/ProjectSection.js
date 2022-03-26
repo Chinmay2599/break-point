@@ -1,17 +1,31 @@
-import { Box } from '@mui/material'
+import { Box, Grid, Typography } from '@mui/material'
 import React from 'react'
 import { connect } from 'react-redux'
+import ProjectCard from './ProjectCard'
 
-function ProjectSection({uid}) {
+function ProjectSection({ projects }) {
 
     return (
-        <Box>{uid}</Box>
+        <Box margin={2}>
+            <Typography variant='h6'>Projects</Typography>
+            <Grid container spacing={2}>
+                {
+                    projects.map(item => {
+                        return (
+                            <Grid item xs={3}>
+                                <ProjectCard project={item}/>
+                            </Grid>
+                        )
+                    })
+                }
+            </Grid>
+        </Box>
     )
 }
 
 const mapStateToProps = state => {
     return {
-        uid: state.uid
+        projects: state.projects
     }
 }
 
