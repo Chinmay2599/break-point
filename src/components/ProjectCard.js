@@ -4,8 +4,13 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 function ProjectCard({ project }) {
+
+    const clickHandler = () => {
+        console.log(project.name)
+    }
+
     return (
-        <Card>
+        <Card onClick={clickHandler} sx={{cursor: 'pointer'}}>
             <CardHeader
                 title={project.name}
                 action={

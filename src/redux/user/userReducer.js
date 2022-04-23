@@ -1,24 +1,9 @@
-import { LOG_OUT, LOG_USER } from "./userTypes"
+import { LOG_OUT, LOG_USER, UPDATE_PROJECTS } from "./userTypes"
 
 const initialState = {
     uid: localStorage.getItem('user'),
     figmaAccess: null,
-    projects: [
-        {
-            name: 'Demo 1',
-            lastEdited: '25/02/1999',
-            url: null,
-            html: null,
-            data: null,
-        },
-        {
-            name: 'Demo 2',
-            lastEdited: '2/03/2021',
-            url: null,
-            html: null,
-            data: null,
-        }
-    ]
+    projects: []
 }
 
 const userReducer = (state = initialState, action) => {
@@ -28,6 +13,11 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 uid: action.payload.uid
+            }
+        case UPDATE_PROJECTS:
+            return {
+                ...state,
+                projects: action.payload
             }
         case LOG_OUT:
             localStorage.removeItem('user')
